@@ -42,8 +42,8 @@ class Player:
         #defensive stats k="Defense"
         self.total_totalTackles = []
         self.total_soloTackles = []
-        self.forcedFumbles = []
-        self.sacks = []
+        self.total_forcedFumbles = []
+        self.total_sacks = []
         self.total_defInterceptions = []
         self.total_passDeflections = []
 
