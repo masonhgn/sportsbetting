@@ -33,14 +33,14 @@ class Player:
 
 
         #offensive stats, k="Rushing", "Receiving"
-        self.total_rushAvg = []
-        self.total_rushYds = []
-        self.total_carries = []
-        self.total_rushTD = []
-        self.total_receptions = []
-        self.total_recYds = []
-        self.total_recAvg = []
-        self.total_targets = []
+        self.total_rushAvg = [] #avg. rushing yards
+        self.total_rushYds = [] #total rushing yards
+        self.total_carries = [] #total carries
+        self.total_rushTD = [] #total rushing touchdowns
+        self.total_receptions = [] #total caught passes
+        self.total_recYds = [] #total yardage from the passer to when they get stopped/TD
+        self.total_recAvg = [] #avg of metric right above
+        self.total_targets = [] #total times they were thrown the ball
 
         #quarterback, k="Passing"
         self.total_qbr = [] #quarterback rating
@@ -60,7 +60,6 @@ class Player:
         self.sacks = []
         self.total_defInterceptions = []
         self.total_passDeflections = []
-
 
 
 
