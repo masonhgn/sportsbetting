@@ -24,6 +24,7 @@ class Player:
         self.full_name = player_name
 
 
+
         #total plays
         self.total_offensive_snapPct = [] #player played in X% of total offensive snaps
         self.total_offensive_snaps = [] #number of offensive plays participated in

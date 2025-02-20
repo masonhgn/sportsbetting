@@ -1,0 +1,21 @@
+
+https://rapidapi.com/tank01/api/tank01-nfl-live-in-game-real-time-statistics-nfl/playground/apiendpoint_f9337033-5c90-47be-b369-17bc1c4b5f34
+
+get each player's info by searching with their id, and then save some info from that into each Player object
+according to their position, we shall assign different weights to their offensive and defensive ratings
+
+
+
+
+
+
+2/20/25
+
+Perhaps we should make a little class called DataLoader which fetches all of the data that we need to load up the Player classes.
+This should implement the stuff in the data_collection and research ipynb files. Specifically, we need to:
+
+1. fetch all games for a particular season into a list 
+2. fetch boxscore of every game in that list
+
+3. get stats of each participating player in all games
+4. save those stats for each individual player's Player class object

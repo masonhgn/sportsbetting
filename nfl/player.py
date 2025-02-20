@@ -1,48 +1,91 @@
+
+
+MIN_YEAR, MAX_YEAR = 1970, 2024
+
+
 class Player:
     def __init__(self, player_id, player_name):
         self.total_games_recorded = 0
 
         self.player_id = player_id
         self.full_name = player_name
+        self.position: str = None
+        self.weight: int = None
+        self.age: int = None
+        self.team: str = None
+        self.headshot: str = None
+
+        self.stats_list = [
+                'offensive_snapPct',
+                'offensive_snaps',
+                'defensive_snapPct',
+                'defensive_snaps',
+                'st_snapPct',
+                'st_snaps',
+                'rushAvg',
+                'rushYds',
+                'carries',
+                'rushTD',
+                'receptions',
+                'recYds',
+                'recAvg',
+                'targets',
+                'qbr',
+                'rtg',
+                'passAttempts',
+                'passAvg',
+                'passTD',
+                'passYds',
+                'int',
+                'passCompletions',
+                'totalTackles',
+                'soloTackles',
+                'forcedFumbles',
+                'sacks',
+                'defInterceptions',
+                'passDeflections'
+            ]
 
 
-        #total plays
-        self.total_offensive_snapPct = [] #player played in X% of total offensive snaps
-        self.total_offensive_snaps = [] #number of offensive plays participated in
-        self.total_defensive_snapPct = [] #player played in X% of total defensive snaps
-        self.total_defensive_snaps = [] #number of defensive plays participated in
-        self.total_st_snapPct = [] #player played in X% of special teams snaps
-        self.total_st_snaps = [] #number of special teams plays participated in
+        self.stats = {}
+
+    def add_stat(self, season: int, stat_name: str, stat) -> None:
+        """add a specific stat for a specific game"""
+        assert stat_name in self.stats_list and MIN_YEAR <= season <= MAX_YEAR
+        if not season in self.stats: self.stats[season] = {}
+
+        if not stat_name in self.stats[season]: self.stats[season][stat_name] = []
+        self.stats[season][stat_name].append(stat)
+
+    def get_stat_overall(self, stat_name: str) -> list:
+        overall = []
+        for season in self.stats.values():
+            overall += season[stat_name]
+        #assert len(overall) > 0
+        return overall
+
+    def print_stats(self):
+        print('Player Name: ' + self.full_name)
+        for stat_name in self.stats_list:
+            print(stat_name + ':' + str(self.get_stat_overall(stat_name)))
+            print()
 
 
 
-        #offensive stats, k="Rushing"
-        self.total_rushAvg = [] #avg. rushing yards
-        self.total_rushYds = [] #total rushing yards
-        self.total_carries = [] #total carries
-        self.total_rushTD = [] #total rushing touchdowns
-        self.total_receptions = [] #total caught passes
-        #k="Receiving"
-        self.total_recYds = [] #total yardage from the passer to when they get stopped/TD
-        self.total_recAvg = [] #avg of metric right above
-        self.total_targets = [] #total times they were thrown the ball
-
-        #quarterback, k="Passing"
-        self.total_qbr = [] #quarterback rating
-        self.total_rtg = [] #passer rating
-        self.total_passAttempts = []
-        self.total_passAvg = []
-        self.total_passTD = []
-        self.total_passYds = []
-        self.total_int = []
-        self.total_passCompletions = []
 
 
-        #defensive stats k="Defense"
-        self.total_totalTackles = []
-        self.total_soloTackles = []
-        self.total_forcedFumbles = []
-        self.total_sacks = []
-        self.total_defInterceptions = []
-        self.total_passDeflections = []
+
+
+
+    def offensive_rating(self, weights: list[float]) -> float:
+        pass
+
+    def defensive_rating(self, weights: list[float]) -> float:
+        pass
+
+    def qb_rating(self) -> float:
+        pass
+
+    def st_rating(self) -> float:
+        pass
 
