@@ -1,0 +1,96 @@
+
+
+
+My goals:
+
+- calculate PER, for every player, for every game.
+- calculate offensive rating and defensive rating, for every player, for every game
+- look for a relationship between these variables and the outcomes of games (win/loss, total points on each side, etc.)
+
+
+
+To create these metrics, we must create a robust Player class which keeps track of each individual player and their stats.
+Each player class should have an easily navigable stats dictionary which has this structure:
+k = season: str
+v = dict[
+        k = game_id: str
+        v = game stats for this player on this game (see [65] in data_collection.ipynb)
+    ]
+
+We must also have a class called CollectiveStats which keeps track of league wide and team wide statistics. This should have two dictionaries:
+
+1. the league wide stats
+
+dict[
+    k = season: int
+    v = dict[
+        'regular_season': dict[
+            k = game_id
+            v = dict[
+                k = stat_name
+                v = stat (this should be a list of floats, so we can easily calculate np.mean())
+            ]
+        ],
+
+        'playoffs': dict[
+            k = game_id
+            v = dict[
+                k = stat_name
+                v = stat (this should be a list of floats, so we can easily calculate np.mean())
+            ]
+        ]
+    ]
+]
+
+
+2. team wide stats
+
+dict[
+    k = season: int
+    v = dict[
+        'regular_season: dict[
+            k = game_id
+            v = dict[
+                k = team_id
+                v = dict[
+                    k = stat_name
+                    v = stat (this should be a list of floats, so we can easily calculate np.mean())
+                ]
+            ]
+        ],
+
+        'playoffs': dict[
+            k = game_id
+            v = dict[
+                k = team_id
+                v = dict[
+                    k = stat_name
+                    v = stat (this should be a list of floats, so we can easily calculate np.mean())
+                ]
+            ]
+        ]
+
+    ]
+]
+
+
+
+
+
+
+
+
+now that we've created these metrics, we can populate them!!
+
+we do that by doing something like this:
+
+keep some dictionary of players where k = player_id and v = list[Player]
+
+for each season:
+    for each game in the regular season, and then for each game in the playoffs:
+        for each participating player:
+            create/update a player, and add each stat for that player in the aforementioned dictionary
+            create/update the league wide stats
+            create/update the team wide stats
+        
+nice!!
