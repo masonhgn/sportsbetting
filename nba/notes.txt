@@ -10,12 +10,28 @@ My goals:
 
 
 To create these metrics, we must create a robust Player class which keeps track of each individual player and their stats.
-Each player class should have an easily navigable stats dictionary which has this structure:
-k = season: str
-v = dict[
-        k = game_id: str
-        v = game stats for this player on this game (see [65] in data_collection.ipynb)
+Each player class should have an easily navigable basic_stats dictionary which has this structure:
+dict[
+    k = season: str
+    v = dict[
+        'regular_season: dict[
+            k = game_id: str
+            v = game stats for this player on this game
+        ],
+        'playoffs: dict[
+            k = game_id: str
+            v = game stats for this player on this game
+        ]
     ]
+]
+
+
+
+each single game stats dict looks like this:
+'3': {'player': {'id': 10, 'firstname': 'Lavoy', 'lastname': 'Allen'}, 'team': {'id': 15, 'name': 'Indiana Pacers', 'nickname': 'Pacers', 'code': 'IND', 
+'logo': 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/cf/Pacers_de_l%27Indiana_logo.svg/1180px-Pacers_de_l%27Indiana_logo.svg.png'}, 'game': {'id': 3}, 
+'points': 6, 'pos': None, 'min': '14:39', 'fgm': 3, 'fga': 5, 'fgp': '60.0', 'ftm': 0, 'fta': 0, 'ftp': '0.0', 'tpm': 0, 'tpa': 0, 'tpp': '0.0', 
+'offReb': 5, 'defReb': 3, 'totReb': 8, 'assists': 0, 'pFouls': 1, 'steals': 0, 'turnovers': 0, 'blocks': 1, 'plusMinus': '-1', 'comment': None}
 
 We must also have a class called CollectiveStats which keeps track of league wide and team wide statistics. This should have two dictionaries:
 
@@ -94,3 +110,20 @@ for each season:
             create/update the team wide stats
         
 nice!!
+
+
+
+
+
+
+2/26/2025
+
+ok now we need to calculate some more complex statistics for players. before we do that we need to populate our CollectiveStats object.
+
+0.5. clean up the all_games dataframe to remove null shit
+1. populate CollectiveStats object similarly to the players stats objects
+
+2. calculate PER for every player, for every game
+
+3. create a pandas dataframe with game outcomes and features using PER or other stats maybe?
+4. do some EDA on that dataframe
