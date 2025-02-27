@@ -92,20 +92,6 @@ class Player:
         print(f"\nPlayer ID: {self.id}")
         print(f"Full Name: {self.full_name}\n")
 
-        # print("Career Stats:")
-        # career_stats = defaultdict(float)
-        # career_games_played = 0
-
-        # for season, season_data in self.calculated_stats.items():
-        #     for game_type, games in season_data.items():
-        #         for game_id, stats in games.items():
-        #             for stat, value in stats['career_total'].items():
-        #                 career_stats[stat] = value
-        #             career_games_played += 1
-
-        # for stat, value in career_stats.items():
-        #     print(f"  {stat.capitalize()}: {value}")
-
         print("\nLatest Season Stats:")
         latest_season = max(self.calculated_stats.keys(), default=None)
         if latest_season:
@@ -123,3 +109,56 @@ class Player:
                 print(f"    {stat.capitalize()}: {value}")
 
         print("\nEnd of Player Info\n")
+
+
+    
+
+
+
+    def calculate_uper(self,
+        lgTRB: float, #league total rebounds
+        lgORB: float, #league offensive rebounds
+        lgPTS: float, #league total points
+        lgFGA: float, #league field goal attempts
+        lgTO: float, #league turnovers
+        lgFTA: float, #league free throw attempts
+        lgAST: float, #league assists
+        lgFT: float, #league free throws
+        lgFG: float, #league field goals
+        lgPF: float, #personal fouls
+        tmAST: float, #team assists
+        tmFG: float, #team field goals
+        mins: float, #minutes played
+        ast: float, #assists
+        fg: float, #field goals
+        fga: float, #field goal attempts
+        to: float, #turnovers 
+        trb: float, #total rebounds
+        orb: float, #offensive rebounds
+        stl: float, #steals
+        blk: float, #blocks
+        fta: float, #free throw attempts
+        ft: float, #free throws
+        tp: float, #three pointers
+        pf: float, #personal fouls
+    ) -> float:
+        factor = float(2/3) - ((0.5 * (lgAST/lgFG)) / 2 * (lgFG/lgFT))
+        vop = lgPTS/(lgFGA-lgORB+lgTO+(0.44*lgFTA))
+        drbp = (lgTRB-lgORB)/lgTRB
+
+        uper = 1/mins * (tp + (float(2/3)*ast) \
+                + ((2-(factor*tmAST/tmFG))*fg)    \
+                + (0.5 * ft * (2-(tmAST/tmFG/3))) \
+                - (vop * to) - ((vop * drbp) * (fga-fg)) \
+                - (vop * 0.44 * (0.44 + (0.56 * drbp)) * (fta - ft)) \
+                + (vop * (1-drbp) * (trb - orb)) \
+                + (vop * drbp * orb) + (vop * stl) \
+                + (vop * drbp * blk) \
+                - (pf * ((lgFT/lgPF) - (0.44 * (lgFTA/lgPF) * vop))))
+        
+
+
+    def calculate_per(self, uper: float, lgPace: float, tmPace: float, lgUper: float) -> float:
+        per = uper * (lgPace / tmPace) * 15/lgUper
+        return per
+            
