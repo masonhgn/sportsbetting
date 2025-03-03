@@ -1,10 +1,4 @@
 {
-    "get": "games/",
-    "parameters": {
-        "season": "2020"
-    },
-    "errors": [],
-    "results": 1241,
     "response": [
         {
             "id": 7501,
@@ -67911,90 +67905,6 @@
                 "Brett Nansel",
                 "Ben Taylor",
                 "Mitchell Ervin"
-            ],
-            "timesTied": null,
-            "leadChanges": null,
-            "nugget": null
-        },
-        {
-            "id": 8784,
-            "league": "standard",
-            "season": 2020,
-            "date": {
-                "start": "2021-03-08T01:00:00.000Z",
-                "end": "2021-03-08T04:00:00.000Z",
-                "duration": "2:09"
-            },
-            "stage": 3,
-            "status": {
-                "clock": null,
-                "halftime": false,
-                "short": 3,
-                "long": "Finished"
-            },
-            "periods": {
-                "current": 4,
-                "total": 4,
-                "endOfPeriod": false
-            },
-            "arena": {
-                "name": "State Farm Arena",
-                "city": "Atlanta",
-                "state": "GA",
-                "country": "USA"
-            },
-            "teams": {
-                "visitors": {
-                    "id": 35,
-                    "name": "Team LeBron",
-                    "nickname": "Team LeBron",
-                    "code": "LBN",
-                    "logo": ""
-                },
-                "home": {
-                    "id": 34,
-                    "name": "Team Team Durant",
-                    "nickname": "Team Durant",
-                    "code": "DRT",
-                    "logo": ""
-                }
-            },
-            "scores": {
-                "visitors": {
-                    "win": 0,
-                    "loss": 0,
-                    "series": {
-                        "win": 0,
-                        "loss": 0
-                    },
-                    "linescore": [
-                        "40",
-                        "60",
-                        "46",
-                        "24"
-                    ],
-                    "points": 170
-                },
-                "home": {
-                    "win": 0,
-                    "loss": 0,
-                    "series": {
-                        "win": 0,
-                        "loss": 0
-                    },
-                    "linescore": [
-                        "39",
-                        "41",
-                        "45",
-                        "25"
-                    ],
-                    "points": 150
-                }
-            },
-            "officials": [
-                "Tony Brown",
-                "Tom Washington",
-                "Courtney Kirkland"
             ],
             "timesTied": null,
             "leadChanges": null,

@@ -2,6 +2,7 @@
 
 import json
 from collections import defaultdict
+from tools import time_to_minutes
 
 class Player:
     def __init__(self, player_id: int = None, full_name: str = None) -> None:
@@ -10,6 +11,7 @@ class Player:
         self.full_name = full_name
 
         self.basic_stats = {}
+        self.compounded_stats = {}
         self.calculated_stats = {}
 
 
@@ -48,6 +50,32 @@ class Player:
         return cls.from_dict(data)
 
 
+
+    def update_compounded_stats(self, season: int, game_id: str, regular_season: bool, stats_dict: dict) -> None:
+        if season not in self.compounded_stats:
+            self.compounded_stats[season] = {'regular_season': {}, 'playoffs': {}}
+        
+        game_type = 'regular_season' if regular_season else 'playoffs'
+        season_games = self.compounded_stats[season][game_type]
+        
+        previous_game_id = next(reversed(season_games), None)
+        
+        if game_id not in season_games:
+            if previous_game_id:
+                season_games[game_id] = {stat: list(season_games[previous_game_id].get(stat, [])) for stat in season_games[previous_game_id]}
+            else:
+                season_games[game_id] = defaultdict(list)
+
+        for stat_name, stat_value in stats_dict.items():
+            if stat_name == 'min': stat_value = time_to_minutes(stat_value)
+            if isinstance(stat_value, (int, float)):
+                season_games[game_id][stat_name].append(stat_value)
+
+
+
+
+
+
     def populate_calculated_stats(self, from_scratch: bool = False) -> None:
 
         if from_scratch:
@@ -71,6 +99,7 @@ class Player:
 
                     games_played += 1
                     for stat, value in stats.items():
+                        if stat == 'min': value = time_to_minutes(value)
                         if isinstance(value, (int, float)):
                             season_totals[stat] += value
                             career_totals[stat] += value
@@ -114,7 +143,7 @@ class Player:
     
 
 
-
+    @classmethod
     def calculate_uper(self,
         lgTRB: float, #league total rebounds
         lgORB: float, #league offensive rebounds
@@ -142,21 +171,37 @@ class Player:
         tp: float, #three pointers
         pf: float, #personal fouls
     ) -> float:
-        factor = float(2/3) - ((0.5 * (lgAST/lgFG)) / 2 * (lgFG/lgFT))
-        vop = lgPTS/(lgFGA-lgORB+lgTO+(0.44*lgFTA))
-        drbp = (lgTRB-lgORB)/lgTRB
 
-        uper = 1/mins * (tp + (float(2/3)*ast) \
-                + ((2-(factor*tmAST/tmFG))*fg)    \
-                + (0.5 * ft * (2-(tmAST/tmFG/3))) \
-                - (vop * to) - ((vop * drbp) * (fga-fg)) \
-                - (vop * 0.44 * (0.44 + (0.56 * drbp)) * (fta - ft)) \
-                + (vop * (1-drbp) * (trb - orb)) \
-                + (vop * drbp * orb) + (vop * stl) \
-                + (vop * drbp * blk) \
-                - (pf * ((lgFT/lgPF) - (0.44 * (lgFTA/lgPF) * vop))))
-        
+        if lgFG == 0 or lgFT == 0 or lgFGA == 0 or lgFTA == 0 or lgPF == 0 or mins == 0 or tmFG == 0:
+                return None #prevent division by 0
 
+
+        try:
+            factor = float(2/3) - ((0.5 * (lgAST/lgFG)) / 2 * (lgFG/lgFT))
+            vop = lgPTS/(lgFGA-lgORB+lgTO+(0.44*lgFTA))
+            drbp = (lgTRB-lgORB)/lgTRB
+
+            uper = 1/mins * (tp + (float(2/3)*ast) \
+                    + ((2-(factor*tmAST/tmFG))*fg)    \
+                    + (0.5 * ft * (2-(tmAST/tmFG/3))) \
+                    - (vop * to) - ((vop * drbp) * (fga-fg)) \
+                    - (vop * 0.44 * (0.44 + (0.56 * drbp)) * (fta - ft)) \
+                    + (vop * (1-drbp) * (trb - orb)) \
+                    + (vop * drbp * orb) + (vop * stl) \
+                    + (vop * drbp * blk) \
+                    - (pf * ((lgFT/lgPF) - (0.44 * (lgFTA/lgPF) * vop))))
+            
+        except ZeroDivisionError as e:
+            variables = {
+                "lgTRB": lgTRB, "lgORB": lgORB, "lgPTS": lgPTS, "lgFGA": lgFGA, "lgTO": lgTO, "lgFTA": lgFTA,
+                "lgAST": lgAST, "lgFT": lgFT, "lgFG": lgFG, "lgPF": lgPF, "tmAST": tmAST, "tmFG": tmFG,
+                "mins": mins, "ast": ast, "fg": fg, "fga": fga, "to": to, "trb": trb, "orb": orb,
+                "stl": stl, "blk": blk, "fta": fta, "ft": ft, "tp": tp, "pf": pf
+            }
+            for var, value in variables.items():
+                if value == 0:
+                    print(f" {var} = {value} (Possible issue!)")
+            exit()
 
     def calculate_per(self, uper: float, lgPace: float, tmPace: float, lgUper: float) -> float:
         per = uper * (lgPace / tmPace) * 15/lgUper

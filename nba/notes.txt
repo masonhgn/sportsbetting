@@ -16,11 +16,11 @@ dict[
     v = dict[
         'regular_season: dict[
             k = game_id: str
-            v = game stats for this player on this game
+            v = game stats for this player on this game (taken from the boxscores)
         ],
         'playoffs: dict[
             k = game_id: str
-            v = game stats for this player on this game
+            v = game stats for this player on this game (taken from the boxscores)
         ]
     ]
 ]
@@ -127,3 +127,14 @@ ok now we need to calculate some more complex statistics for players. before we 
 
 3. create a pandas dataframe with game outcomes and features using PER or other stats maybe?
 4. do some EDA on that dataframe
+
+
+
+keys of temp game and league vals: 
+
+dict_keys(['points', 'fgm', 'fga', 'ftm', 'fta', 'tpm', 'tpa', 'offReb', 'defReb', 'totReb', 'assists', 'pFouls', 'steals', 'turnovers', 'blocks'])
+dict_keys(['points', 'fgm', 'fga', 'ftm', 'fta', 'tpm', 'tpa', 'offReb', 'defReb', 'totReb', 'assists', 'pFouls', 'steals', 'turnovers', 'blocks'])
+
+
+
+now we have minutes, worry about game_stats (int,float) line

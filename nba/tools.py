@@ -26,6 +26,14 @@ def compare_dates(date1: str, date2: str) -> bool:
 
 
 
+def time_to_minutes(time_str: str) -> float:
+    if time_str in ['-','--']: return 0
+    if not ':' in time_str: return float(time_str)
+    minutes, seconds = map(int, time_str.split(':'))
+    return minutes + seconds / 60.0
+
+
+
 
         
 

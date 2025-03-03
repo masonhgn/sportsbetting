@@ -1,10 +1,4 @@
 {
-    "get": "games/",
-    "parameters": {
-        "season": "2021"
-    },
-    "errors": [],
-    "results": 1494,
     "response": [
         {
             "id": 8787,
@@ -23276,76 +23270,6 @@
                     },
                     "linescore": [],
                     "points": 82
-                }
-            },
-            "officials": [],
-            "timesTied": null,
-            "leadChanges": null,
-            "nugget": null
-        },
-        {
-            "id": 9565,
-            "league": "utah",
-            "season": 2021,
-            "date": {
-                "start": "2021-08-07T01:00:00.000Z",
-                "end": null,
-                "duration": null
-            },
-            "stage": 2,
-            "status": {
-                "clock": null,
-                "halftime": null,
-                "short": 3,
-                "long": "Finished"
-            },
-            "periods": {
-                "current": 4,
-                "total": 4,
-                "endOfPeriod": null
-            },
-            "arena": {
-                "name": null,
-                "city": null,
-                "state": null,
-                "country": null
-            },
-            "teams": {
-                "visitors": {
-                    "id": 102,
-                    "name": "Utah Blue",
-                    "nickname": "Jazz",
-                    "code": "UTB",
-                    "logo": ""
-                },
-                "home": {
-                    "id": 103,
-                    "name": "Utah White",
-                    "nickname": "Jazz",
-                    "code": "UTW",
-                    "logo": ""
-                }
-            },
-            "scores": {
-                "visitors": {
-                    "win": null,
-                    "loss": null,
-                    "series": {
-                        "win": null,
-                        "loss": null
-                    },
-                    "linescore": [],
-                    "points": 65
-                },
-                "home": {
-                    "win": null,
-                    "loss": null,
-                    "series": {
-                        "win": null,
-                        "loss": null
-                    },
-                    "linescore": [],
-                    "points": 83
                 }
             },
             "officials": [],
@@ -115280,90 +115204,6 @@
                 "Derek Richardson",
                 "Derrick Collins",
                 "Brandon Schwab"
-            ],
-            "timesTied": null,
-            "leadChanges": null,
-            "nugget": null
-        },
-        {
-            "id": 10865,
-            "league": "standard",
-            "season": 2021,
-            "date": {
-                "start": "2022-02-21T01:00:00.000Z",
-                "end": "2022-02-21T03:59:00.000Z",
-                "duration": "2:13"
-            },
-            "stage": 3,
-            "status": {
-                "clock": null,
-                "halftime": false,
-                "short": 3,
-                "long": "Finished"
-            },
-            "periods": {
-                "current": 4,
-                "total": 4,
-                "endOfPeriod": false
-            },
-            "arena": {
-                "name": "Rocket Mortgage FieldHouse",
-                "city": "Cleveland",
-                "state": "OH",
-                "country": "USA"
-            },
-            "teams": {
-                "visitors": {
-                    "id": 34,
-                    "name": "Team Team Durant",
-                    "nickname": "Team Durant",
-                    "code": "DRT",
-                    "logo": ""
-                },
-                "home": {
-                    "id": 35,
-                    "name": "Team LeBron",
-                    "nickname": "Team LeBron",
-                    "code": "LBN",
-                    "logo": ""
-                }
-            },
-            "scores": {
-                "visitors": {
-                    "win": 0,
-                    "loss": 0,
-                    "series": {
-                        "win": 0,
-                        "loss": 0
-                    },
-                    "linescore": [
-                        "45",
-                        "49",
-                        "45",
-                        "21"
-                    ],
-                    "points": 160
-                },
-                "home": {
-                    "win": 0,
-                    "loss": 0,
-                    "series": {
-                        "win": 0,
-                        "loss": 0
-                    },
-                    "linescore": [
-                        "47",
-                        "46",
-                        "45",
-                        "25"
-                    ],
-                    "points": 163
-                }
-            },
-            "officials": [
-                "Brian Forte",
-                "Kane Fitzgerald",
-                "James Williams"
             ],
             "timesTied": null,
             "leadChanges": null,

@@ -5,7 +5,8 @@ class CollectiveStats:
     def __init__(self):
         self.league_stats = {}
         self.team_stats = {}
-
+        self.game_participants = {}
+        self.game_types = {}
 
 
     def add_league_stat(self, season: int, regular_season: bool, game_id: str, stat_name: str, stat: float) -> None:
@@ -56,6 +57,22 @@ class CollectiveStats:
 
 
         season_games[game_id][team_id][stat_name].append(stat)
+
+
+
+    def add_game_participant(self, season: int, regular_season: bool, game_id: str, player_id: str) -> None:
+        if season not in self.game_participants:
+            self.game_participants[season] = {'regular_season': {}, 'playoffs': {}}
+
+        game_type = 'regular_season' if regular_season else 'playoffs'
+        season_games = self.game_participants[season][game_type]
+
+        if game_id not in season_games:
+            season_games[game_id] = []
+
+        assert player_id not in season_games[game_id]
+        season_games[game_id].append(player_id)    
+
 
 
 
